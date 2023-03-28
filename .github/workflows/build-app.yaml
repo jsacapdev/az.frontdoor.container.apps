@@ -1,7 +1,9 @@
-name: (Optional) Build Node Container App
+name: Build Node Container App
 
-on:
-  workflow_dispatch:
+# on:
+#   workflow_dispatch:
+
+on: [push]
 
 env:
   REGISTRY: ghcr.io
@@ -17,6 +19,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v4.1.1
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
+          tags: |
+            # set latest tag for main branch
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}        
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
