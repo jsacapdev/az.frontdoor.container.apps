@@ -1,2 +1,5 @@
-###
+### local
 GET http://localhost:3000/health HTTP/1.1
+
+### container
+GET http://localhost:49160/health HTTP/1.1
