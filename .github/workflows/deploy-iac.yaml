@@ -40,7 +40,7 @@ jobs:
 
       - name: Print vars
         run: |
-          echo "location -> ${{ env.LOCATION }} rg name -> ${{ env.BASE_NAME }}"            
+          echo "location -> ${{ env.LOCATION }} rg name -> ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }}"            
 
       # - name: Create Resource Group
       #   uses: Azure/cli@v1
