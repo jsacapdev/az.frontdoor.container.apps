@@ -42,4 +42,4 @@ jobs:
           inlineScript: |
             az config set bicep.use_binary_from_path=false
             az bicep install
-            az deployment group create -f ./src/arm/main.bicep -g rg-aca-dev-001 --parameters baseName=aca-dev-001
+            az deployment group create --name ${{ steps.set-vars.outputs.DEPLOYMENT_NAME }} --resource-group ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }} --template-file ./src/arm/main.bicep --parameters baseName=${{ env.BASE_NAME }} --query properties.outputs.result.value -o json | jq -r . > ./infra/outputs.json
