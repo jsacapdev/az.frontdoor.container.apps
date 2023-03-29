@@ -24,7 +24,6 @@ jobs:
       - name: Install jq
         uses: dcarbone/install-jq-action@v1.0.1
 
-      # Set Environment Variables
       - name: Set variables
         id: set-vars
         run: | 
@@ -37,4 +36,10 @@ jobs:
           inlineScript: |
             az provider register --wait --namespace Microsoft.App
             az provider register --wait --namespace Microsoft.ContainerService
-            az provider register --wait --namespace Microsoft.Cdn          
+            az provider register --wait --namespace Microsoft.Cdn   
+
+      - name: Create Resource Group
+        uses: Azure/cli@v1
+        with:
+          inlineScript: |
+            az group create --name ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }} --location ${{ env.REGISTRY }}                   
