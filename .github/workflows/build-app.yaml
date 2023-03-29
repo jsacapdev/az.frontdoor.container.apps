@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 env:
-  BASE_NAME: 
-  LOCATION: uksouth
+  REGISTRY: ghcr.io
+  IMAGE_NAME: nodeapp
 
 jobs:
   build:

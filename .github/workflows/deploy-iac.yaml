@@ -3,8 +3,8 @@ name: Deploy Infrastructure
 on: [push]
 
 env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: nodeapp
+  BASE_NAME: aca-dev-001
+  LOCATION: uksouth
 
 jobs:
   deploy-ca-infrastructure:
@@ -20,3 +20,11 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Register Providers
+        uses: Azure/cli@v1
+        with:
+          inlineScript: |
+            az provider register --wait --namespace Microsoft.App
+            az provider register --wait --namespace Microsoft.ContainerService
+            az provider register --wait --namespace Microsoft.Cdn          
