@@ -30,14 +30,6 @@ jobs:
           echo "RESOURCE_GROUP_NAME=rg-${{ env.BASE_NAME }}" >> $GITHUB_OUTPUT
           echo "DEPLOYMENT_NAME=${{ env.BASE_NAME }}-deployment-$(date +%s)" >> $GITHUB_OUTPUT
 
-      - name: Register Providers
-        uses: Azure/cli@v1
-        with:
-          inlineScript: |
-            az provider register --wait --namespace Microsoft.App
-            az provider register --wait --namespace Microsoft.ContainerService
-            az provider register --wait --namespace Microsoft.Cdn   
-
       - name: Create Resource Group
         uses: Azure/cli@v1
         with:
@@ -47,6 +39,7 @@ jobs:
       - name: Deploy Bicep
         uses: Azure/cli@v1
         with:
-          azcliversion: 2.45.0
           inlineScript: |
+            az config set bicep.use_binary_from_path=false
+            az bicep install
             az deployment group create -f ./src/arm/main.bicep -g rg-aca-dev-001 --parameters baseName=aca-dev-001
