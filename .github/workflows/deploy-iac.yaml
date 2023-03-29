@@ -47,5 +47,6 @@ jobs:
       - name: Deploy Bicep
         uses: Azure/cli@v1
         with:
+          azcliversion: 2.45.0
           inlineScript: |
             az deployment group create -f ./src/arm/main.bicep -g rg-aca-dev-001 --parameters baseName=aca-dev-001
