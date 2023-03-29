@@ -52,4 +52,4 @@ jobs:
         uses: Azure/cli@v1
         with:
           inlineScript: |
-            az deployment group create --name ${{ steps.set-vars.outputs.DEPLOYMENT_NAME }} --resource-group ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }} --template-file ./src/arm/balls.bicep --parameters baseName=${{ env.BASE_NAME }} --query properties.outputs.result.value -o json | jq -r . > ./infra/outputs.json                       
+            az deployment group create -f ./src/arm/main.bicep -g rg-aca-dev-001 --parameters baseName=aca-dev-001 --debug
