@@ -1,0 +1,17 @@
+name: Deploy Infrastructure
+
+on: [push]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: nodeapp
+
+jobs:
+  deploy-ca-infrastructure:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
