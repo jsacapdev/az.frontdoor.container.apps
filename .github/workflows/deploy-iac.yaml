@@ -28,7 +28,7 @@ jobs:
         id: set-vars
         run: | 
           echo "RESOURCE_GROUP_NAME=rg-${{ env.BASE_NAME }}" >> $GITHUB_OUTPUT
-          echo "DEPLOYMENT_NAME=${{ github.event.inputs.basename }}-deployment-$(date +%s)" >> $GITHUB_OUTPUT
+          echo "DEPLOYMENT_NAME=${{ env.BASE_NAME }}-deployment-$(date +%s)" >> $GITHUB_OUTPUT
 
       - name: Register Providers
         uses: Azure/cli@v1
