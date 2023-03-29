@@ -44,12 +44,8 @@ jobs:
           inlineScript: |
             az group create --name ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }} --location ${{ env.LOCATION }}   
 
-      - name: Print vars
-        run: |
-          echo "abc -> ${{ steps.set-vars.outputs.DEPLOYMENT_NAME }}"                     
-
       - name: Deploy Bicep
         uses: Azure/cli@v1
         with:
           inlineScript: |
-            az deployment group create -f ./src/arm/main.bicep -g rg-aca-dev-001 --parameters baseName=aca-dev-001 --debug
+            az deployment group create -f ./src/arm/main.bicep -g rg-aca-dev-001 --parameters baseName=aca-dev-001
