@@ -52,4 +52,4 @@ jobs:
         uses: Azure/cli@v1
         with:
           inlineScript: |
-            az deployment group create --name ${{ steps.set-vars.outputs.DEPLOYMENT_NAME }} --resource-group ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }} --template-file ./src/arm/main.bicep --parameters baseName=${{ env.BASE_NAME }}           
+            az deployment group create --name ${{ steps.set-vars.outputs.DEPLOYMENT_NAME }} --resource-group ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }} --template-file ./src/arm/balls.bicep --parameters baseName=${{ env.BASE_NAME }} --query properties.outputs.result.value -o json | jq -r . > ./infra/outputs.json                       
