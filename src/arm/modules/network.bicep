@@ -5,8 +5,8 @@ param baseName string
 param location string 
 
 // Define names
-// var vnetName = 'vnet-${baseName}'
-var subnetNsgName = 'snet-nsg-${baseName}'
+var vnetName = 'vnet-${baseName}'
+var subnetNsgName = 'nsg-snet-${baseName}'
 
 // Create Network Security Group
 resource subnetNsg 'Microsoft.Network/networkSecurityGroups@2022-01-01' = {
@@ -18,29 +18,29 @@ resource subnetNsg 'Microsoft.Network/networkSecurityGroups@2022-01-01' = {
   }
 }
 
-// // Create VNET
-// resource vnet 'Microsoft.Network/virtualNetworks@2022-01-01' = {
-//   name: vnetName
-//   location: location
-//   properties: {
-//     addressSpace: {
-//       addressPrefixes: [
-//         '10.0.0.0/16'
-//       ]
-//     }
-//     subnets: [
-//       {
-//         name: 'containerapp-snet'
-//         properties: {
-//           addressPrefix: '10.0.0.0/23'
-//           networkSecurityGroup: {
-//             id: subnetNsg.id
-//           }
-//           privateLinkServiceNetworkPolicies: 'Disabled'
-//         }
-//       }
-//     ]
-//   }
-// }
+// Create VNET
+resource vnet 'Microsoft.Network/virtualNetworks@2022-01-01' = {
+  name: vnetName
+  location: location
+  properties: {
+    addressSpace: {
+      addressPrefixes: [
+        '10.0.0.0/16'
+      ]
+    }
+    subnets: [
+      {
+        name: 'snet-containerapp'
+        properties: {
+          addressPrefix: '10.0.0.0/23'
+          networkSecurityGroup: {
+            id: subnetNsg.id
+          }
+          privateLinkServiceNetworkPolicies: 'Disabled'
+        }
+      }
+    ]
+  }
+}
 
-// output containerappsSubnetid string = vnet.properties.subnets[0].id
+output containerappsSubnetid string = vnet.properties.subnets[0].id

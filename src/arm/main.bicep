@@ -13,3 +13,13 @@ module network './modules/network.bicep' = {
     baseName: baseName
   }
 }
+
+// Prepare Output
+var subId = network.outputs.containerappsSubnetid
+
+// outputs
+output subnetIdOut string = subId
+
+output result object = {
+  subId: subId
+}
