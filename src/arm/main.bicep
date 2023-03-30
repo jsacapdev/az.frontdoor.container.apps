@@ -14,6 +14,14 @@ module network './modules/network.bicep' = {
   }
 }
 
+module logAnalytics './modules/logAnalytics.bicep' = {
+  name: 'logAnalytics'
+  params: {
+    location: location
+    baseName: baseName
+  }
+}
+
 // Prepare Output
 var subId = network.outputs.containerappsSubnetid
 
