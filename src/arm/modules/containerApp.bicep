@@ -7,6 +7,9 @@ param location string
 @description('Id of the Container Apps Environment')
 param containerAppsEnvironmentId string
 
+@description('Container Image')
+param containerImage string
+
 // Define names
 var appName = 'ca-${baseName}'
 
@@ -25,6 +28,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-10-01' = {
       containers: [
         {
           name: 'app'
+          image: containerImage
           probes: [
             {
               type: 'Liveness'
