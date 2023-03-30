@@ -22,6 +22,16 @@ module logAnalytics './modules/logAnalytics.bicep' = {
   }
 }
 
+module containerAppsEnv './modules/containerAppsEnv.bicep' = {
+  name: 'containerapps'
+  params: {
+    location: location
+    baseName: baseName
+    logAnalyticsWorkspaceName: logAnalytics.outputs.logAnalyticsWorkspaceName
+    infrastructureSubnetId: network.outputs.containerappsSubnetid
+  }
+}
+
 // Prepare Output
 var subId = network.outputs.containerappsSubnetid
 

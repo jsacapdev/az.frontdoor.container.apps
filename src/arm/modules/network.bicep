@@ -9,7 +9,7 @@ var vnetName = 'vnet-${baseName}'
 var subnetNsgName = 'nsg-snet-ca-${baseName}'
 
 // Create Network Security Group
-resource subnetNsg 'Microsoft.Network/networkSecurityGroups@2022-01-01' = {
+resource subnetNsg 'Microsoft.Network/networkSecurityGroups@2022-09-01' = {
   name: subnetNsgName
   location: location
   properties: {
@@ -19,7 +19,7 @@ resource subnetNsg 'Microsoft.Network/networkSecurityGroups@2022-01-01' = {
 }
 
 // Create VNET
-resource vnet 'Microsoft.Network/virtualNetworks@2022-01-01' = {
+resource vnet 'Microsoft.Network/virtualNetworks@2022-09-01' = {
   name: vnetName
   location: location
   properties: {
