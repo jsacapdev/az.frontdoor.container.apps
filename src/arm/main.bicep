@@ -32,6 +32,15 @@ module containerAppsEnv './modules/containerAppsEnv.bicep' = {
   }
 }
 
+module containerApp './modules/containerApp.bicep' = {
+  name: 'containerApp'
+  params: {
+    location: location
+    baseName: baseName
+    containerAppsEnvironmentId: containerAppsEnv.outputs.containerAppsEnvironmentId
+  }
+}
+
 // Prepare Output
 var subId = network.outputs.containerappsSubnetid
 
