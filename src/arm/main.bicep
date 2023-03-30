@@ -38,7 +38,7 @@ module containerApp './modules/containerApp.bicep' = {
     location: location
     baseName: baseName
     containerAppsEnvironmentId: containerAppsEnv.outputs.containerAppsEnvironmentId
-    containerImage: 'jsacapdev/nodeapp:v1'
+    containerImage: 'ghcr.io/jsacapdev/nodeapp:latest'
   }
 }
 
