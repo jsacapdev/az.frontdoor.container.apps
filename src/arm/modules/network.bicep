@@ -6,7 +6,7 @@ param location string
 
 // Define names
 var vnetName = 'vnet-${baseName}'
-var subnetNsgName = 'nsg-snet-${baseName}'
+var subnetNsgName = 'nsg-snet-ca-${baseName}'
 
 // Create Network Security Group
 resource subnetNsg 'Microsoft.Network/networkSecurityGroups@2022-01-01' = {
@@ -30,7 +30,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2022-01-01' = {
     }
     subnets: [
       {
-        name: 'snet-containerapp'
+        name: 'snet-ca'
         properties: {
           addressPrefix: '10.0.0.0/23'
           networkSecurityGroup: {
