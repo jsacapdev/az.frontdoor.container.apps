@@ -25,4 +25,6 @@ result=$(az deployment group create \
     -o json \
     --query properties.outputs.result.value)
 
+echo $result | jq -r . >$WORKSPACE/outputs.json    
+
 echo "Finshed."
