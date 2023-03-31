@@ -23,6 +23,6 @@ result=$(az deployment group create \
     --parameters \
     baseName=$BASE_NAME \
     -o json \
-    --query properties.outputs.result.value | jq -r . >$WORKSPACE/outputs.json)
+    --query properties.outputs.result.value)
 
 echo "Finshed."
