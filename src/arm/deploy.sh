@@ -15,7 +15,7 @@ BASE_NAME=$3
 az config set bicep.use_binary_from_path=false
 az bicep install
 
-ls -al
+ls -al $WORKSPACE
 
 result=$(az deployment group create \
     --resource-group $RESOURCE_GROUP_NAME \
