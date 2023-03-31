@@ -12,7 +12,7 @@ resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2022-10
   location: location
   properties: {
     sku: {
-      name: 'hiphop'
+      name: 'PerGB2018'
     }
   }
 }
