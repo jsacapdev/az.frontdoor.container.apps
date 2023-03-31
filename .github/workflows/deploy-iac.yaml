@@ -40,6 +40,5 @@ jobs:
         uses: Azure/cli@v1
         with:
           inlineScript: |
-            az config set bicep.use_binary_from_path=false
-            az bicep install
-            az deployment group create --name ${{ steps.set-vars.outputs.DEPLOYMENT_NAME }} --resource-group ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }} --template-file ./src/arm/main.bicep --parameters baseName=${{ env.BASE_NAME }} --query properties.outputs.result.value -o json | jq -r . > ./src/arm/outputs.json
+            chmod +x $GITHUB_WORKSPACE/src/arm/deploy.sh 
+            $GITHUB_WORKSPACE/src/arm/deploy.sh ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }} ${{ steps.set-vars.outputs.DEPLOYMENT_NAME }} ${{ env.BASE_NAME }} $GITHUB_WORKSPACE/src/arm/
