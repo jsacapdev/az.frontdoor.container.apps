@@ -10,12 +10,11 @@ echo "Workspace -> $4";
 RESOURCE_GROUP_NAME=$1
 DEPLOYMENT_NAME=$2
 BASE_NAME=$3
+$WORKSPACE=$4
 
 # workaround to get bicep to work with azure cli github action
 az config set bicep.use_binary_from_path=false
 az bicep install
-
-ls -al $WORKSPACE
 
 result=$(az deployment group create \
     --resource-group $RESOURCE_GROUP_NAME \
