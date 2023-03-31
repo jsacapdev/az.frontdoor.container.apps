@@ -42,4 +42,3 @@ jobs:
           inlineScript: |
             chmod +x $GITHUB_WORKSPACE/src/arm/deploy.sh 
             $GITHUB_WORKSPACE/src/arm/deploy.sh ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }} ${{ steps.set-vars.outputs.DEPLOYMENT_NAME }} ${{ env.BASE_NAME }} $GITHUB_WORKSPACE/src/arm/
-            cat $GITHUB_WORKSPACE/src/arm/outputs.json
