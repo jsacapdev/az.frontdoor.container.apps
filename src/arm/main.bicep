@@ -62,12 +62,28 @@ module frontDoor './modules/frontdoor.bicep' = {
   }
 }
 
-// Prepare Output
-var subId = network.outputs.containerappsSubnetid
+// Re-Read Private Link Service to get Pending Approval status
+module readPrivateLinkService './modules/readPrivateEndpoint.bicep' = {
+  name: 'readprivatelink'
+  params: {
+    privateLinkServiceName: privateLinkService.outputs.privateLinkServiceName
+  }
 
-// outputs
-output subnetIdOut string = subId
+  dependsOn: [
+    frontDoor
+  ]
+}
+
+// Prepare Output
+var privateLinkEndpointConnectionId = readPrivateLinkService.outputs.privateLinkEndpointConnectionId
+var fqdn = frontDoor.outputs.fqdn
+
+// Outputs
+output frontdoor_fqdn string = fqdn
+output privateLinkEndpointConnectionId string = privateLinkEndpointConnectionId
 
 output result object = {
-  subId: subId
+  fqdn: fqdn
+  privateLinkServiceId: privateLinkService.outputs.privateLinkServiceId
+  privateLinkEndpointConnectionId: privateLinkEndpointConnectionId
 }
