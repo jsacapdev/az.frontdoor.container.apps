@@ -43,3 +43,9 @@ jobs:
             chmod +x $GITHUB_WORKSPACE/src/arm/deploy.sh 
             $GITHUB_WORKSPACE/src/arm/deploy.sh ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }} ${{ steps.set-vars.outputs.DEPLOYMENT_NAME }} ${{ env.BASE_NAME }} $GITHUB_WORKSPACE/src/arm/
             cat $GITHUB_WORKSPACE/src/arm/outputs.json
+
+      - name: Get Outputs
+        id: get-outputs
+        run: |
+          echo "PRIVATE_LINK_ENDPOINT_CONNECTION_ID=$(jq -r '.privateLinkEndpointConnectionId' ./infra/outputs.json)" >> $GITHUB_OUTPUT
+          echo "FQDN=$(jq -r '.fqdn' ./infra/outputs.json)" >> $GITHUB_OUTPUT
