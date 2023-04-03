@@ -87,3 +87,4 @@ output result object = {
   privateLinkServiceId: privateLinkService.outputs.privateLinkServiceId
   privateLinkEndpointConnectionId: privateLinkEndpointConnectionId
 }
+
