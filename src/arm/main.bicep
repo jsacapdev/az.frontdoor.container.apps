@@ -42,6 +42,16 @@ module containerApp './modules/containerApp.bicep' = {
   }
 }
 
+module privateLinkService './modules/privateLinkService.bicep' = {
+  name: 'privatelink'
+  params: {
+    location: location
+    baseName: baseName
+    vnetSubnetId: network.outputs.containerappsSubnetid
+    containerAppsDefaultDomainName: containerAppsEnv.outputs.containerAppsEnvironmentDefaultDomain
+  }
+}
+
 // Prepare Output
 var subId = network.outputs.containerappsSubnetid
 
