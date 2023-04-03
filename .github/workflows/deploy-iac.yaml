@@ -47,5 +47,5 @@ jobs:
       - name: Get Outputs
         id: get-outputs
         run: |
-          echo "PRIVATE_LINK_ENDPOINT_CONNECTION_ID=$(jq -r '.privateLinkEndpointConnectionId' ./infra/outputs.json)" >> $GITHUB_OUTPUT
-          echo "FQDN=$(jq -r '.fqdn' ./infra/outputs.json)" >> $GITHUB_OUTPUT
+          echo "PRIVATE_LINK_ENDPOINT_CONNECTION_ID=$(jq -r '.privateLinkEndpointConnectionId' $GITHUB_WORKSPACE/src/arm/outputs.json)" >> $GITHUB_OUTPUT
+          echo "FQDN=$(jq -r '.fqdn' $GITHUB_WORKSPACE/src/arm/outputs.json)" >> $GITHUB_OUTPUT
