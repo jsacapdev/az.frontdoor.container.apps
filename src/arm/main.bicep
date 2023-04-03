@@ -63,28 +63,28 @@ module frontDoor './modules/frontdoor.bicep' = {
 }
 
 // Re-Read Private Link Service to get Pending Approval status
-module readPrivateLinkService './modules/readPrivateEndpoint.bicep' = {
-  name: 'readprivatelink'
-  params: {
-    privateLinkServiceName: privateLinkService.outputs.privateLinkServiceName
-  }
+// module readPrivateLinkService './modules/readPrivateEndpoint.bicep' = {
+//   name: 'readprivatelink'
+//   params: {
+//     privateLinkServiceName: privateLinkService.outputs.privateLinkServiceName
+//   }
 
-  dependsOn: [
-    frontDoor
-  ]
-}
+//   dependsOn: [
+//     frontDoor
+//   ]
+// }
 
 // Prepare Output
-var privateLinkEndpointConnectionId = readPrivateLinkService.outputs.privateLinkEndpointConnectionId
+// var privateLinkEndpointConnectionId = readPrivateLinkService.outputs.privateLinkEndpointConnectionId
 var fqdn = frontDoor.outputs.fqdn
 
 // Outputs
 output frontdoor_fqdn string = fqdn
-output privateLinkEndpointConnectionId string = privateLinkEndpointConnectionId
+// output privateLinkEndpointConnectionId string = privateLinkEndpointConnectionId
 
 output result object = {
   fqdn: fqdn
   privateLinkServiceId: privateLinkService.outputs.privateLinkServiceId
-  privateLinkEndpointConnectionId: privateLinkEndpointConnectionId
+  // privateLinkEndpointConnectionId: privateLinkEndpointConnectionId
 }
 

@@ -46,14 +46,14 @@ jobs:
       - name: Get Outputs
         id: get-outputs
         run: |
-          echo "PRIVATE_LINK_ENDPOINT_CONNECTION_ID=$(jq -r '.privateLinkEndpointConnectionId' $GITHUB_WORKSPACE/src/arm/outputs.json)" >> $GITHUB_OUTPUT
+          # echo "PRIVATE_LINK_ENDPOINT_CONNECTION_ID=$(jq -r '.privateLinkEndpointConnectionId' $GITHUB_WORKSPACE/src/arm/outputs.json)" >> $GITHUB_OUTPUT
           echo "FQDN=$(jq -r '.fqdn' $GITHUB_WORKSPACE/src/arm/outputs.json)" >> $GITHUB_OUTPUT
 
-      - name: Approve Private Endpoint Connection
-        uses: Azure/cli@v1
-        with:
-          inlineScript: |
-            az network private-endpoint-connection approve --id ${{ steps.get-outputs.outputs.PRIVATE_LINK_ENDPOINT_CONNECTION_ID }} --description "(Frontdoor) Approved by CI/CD"
+      # - name: Approve Private Endpoint Connection
+      #   uses: Azure/cli@v1
+      #   with:
+      #     inlineScript: |
+      #       az network private-endpoint-connection approve --id ${{ steps.get-outputs.outputs.PRIVATE_LINK_ENDPOINT_CONNECTION_ID }} --description "(Frontdoor) Approved by CI/CD"
 
       - name: Final Outputs
         run: |
