@@ -52,6 +52,16 @@ module privateLinkService './modules/privateLinkService.bicep' = {
   }
 }
 
+module frontDoor './modules/frontdoor.bicep' = {
+  name: 'frontdoor'
+  params: {
+    baseName: baseName
+    location: location
+    privateLinkServiceId: privateLinkService.outputs.privateLinkServiceId
+    frontDoorAppHostName: containerApp.outputs.containerFqdn
+  }
+}
+
 // Prepare Output
 var subId = network.outputs.containerappsSubnetid
 
