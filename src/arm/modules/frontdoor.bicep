@@ -39,24 +39,24 @@ resource frontDoorEndpoint 'Microsoft.Cdn/profiles/afdendpoints@2022-05-01-previ
   }
 }
 
-// resource frontDoorOriginGroup 'Microsoft.Cdn/profiles/origingroups@2022-05-01-preview' = {
-//   parent: frontDoorProfile
-//   name: frontDoorOriginGroupName
-//   properties: {
-//     loadBalancingSettings: {
-//       sampleSize: 4
-//       successfulSamplesRequired: 3
-//       additionalLatencyInMilliseconds: 50
-//     }
-//     healthProbeSettings: {
-//       probePath: '/health'
-//       probeRequestType: 'HEAD'
-//       probeProtocol: 'Https'
-//       probeIntervalInSeconds: 100
-//     }
-//     sessionAffinityState: 'Disabled'
-//   }
-// }
+resource frontDoorOriginGroup 'Microsoft.Cdn/profiles/origingroups@2022-05-01-preview' = {
+  parent: frontDoorProfile
+  name: frontDoorOriginGroupName
+  properties: {
+    loadBalancingSettings: {
+      sampleSize: 4
+      successfulSamplesRequired: 3
+      additionalLatencyInMilliseconds: 50
+    }
+    healthProbeSettings: {
+      probePath: '/health'
+      probeRequestType: 'HEAD'
+      probeProtocol: 'Https'
+      probeIntervalInSeconds: 100
+    }
+    sessionAffinityState: 'Disabled'
+  }
+}
 
 // resource frontDoorOrigin 'Microsoft.Cdn/profiles/origingroups/origins@2022-05-01-preview' = {
 //   parent: frontDoorOriginGroup
