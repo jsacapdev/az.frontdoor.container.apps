@@ -49,10 +49,9 @@ jobs:
           echo "PRIVATE_LINK_ENDPOINT_CONNECTION_ID=$(jq -r '.privateLinkEndpointConnectionId' $GITHUB_WORKSPACE/src/arm/outputs.json)" >> $GITHUB_OUTPUT
           echo "FQDN=$(jq -r '.fqdn' $GITHUB_WORKSPACE/src/arm/outputs.json)" >> $GITHUB_OUTPUT
 
-      - name: Approve Private Endpoint Connection
-        uses: Azure/cli@v1
-        with:
-          inlineScript: |
-            echo "abc --> ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }} def --> ${{ steps.set-vars.outputs.PRIVATE_LINK_ENDPOINT_CONNECTION_ID }}"
+      - name: Get Outputs
+        id: get-outputs
+        run: |
+          echo "abc --> ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }} def --> ${{ steps.set-vars.outputs.PRIVATE_LINK_ENDPOINT_CONNECTION_ID }}"
 
 
