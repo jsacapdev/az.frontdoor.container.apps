@@ -80,31 +80,31 @@ resource frontDoorOrigin 'Microsoft.Cdn/profiles/originGroups/origins@2022-11-01
   }
 }
 
-// resource frontDoorOriginRoute 'Microsoft.Cdn/profiles/afdendpoints/routes@2022-05-01-preview' = {
-//   parent: frontDoorEndpoint
-//   name: frontDoorOriginRouteName
-//   properties: {
-//     originGroup: {
-//       id: frontDoorOriginGroup.id
-//     }
-//     originPath: '/'
-//     ruleSets: []
-//     supportedProtocols: [
-//       'Http'
-//       'Https'
-//     ]
-//     patternsToMatch: [
-//       '/*'
-//     ]
-//     forwardingProtocol: 'HttpsOnly'
-//     linkToDefaultDomain: 'Enabled'
-//     httpsRedirect: 'Enabled'
-//     enabledState: 'Enabled'
-//   }
+resource frontDoorOriginRoute 'Microsoft.Cdn/profiles/afdendpoints/routes@2022-05-01-preview' = {
+  parent: frontDoorEndpoint
+  name: frontDoorOriginRouteName
+  properties: {
+    originGroup: {
+      id: frontDoorOriginGroup.id
+    }
+    originPath: '/'
+    ruleSets: []
+    supportedProtocols: [
+      'Http'
+      'Https'
+    ]
+    patternsToMatch: [
+      '/*'
+    ]
+    forwardingProtocol: 'HttpsOnly'
+    linkToDefaultDomain: 'Enabled'
+    httpsRedirect: 'Enabled'
+    enabledState: 'Enabled'
+  }
 
-//   dependsOn: [
-//     frontDoorOrigin
-//   ]
-// }
+  dependsOn: [
+    frontDoorOrigin
+  ]
+}
 
-// output fqdn string = frontDoorEndpoint.properties.hostName
+output fqdn string = frontDoorEndpoint.properties.hostName
