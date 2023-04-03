@@ -22,30 +22,30 @@ resource loadBalancer 'Microsoft.Network/loadBalancers@2021-05-01' existing = {
   scope: resourceGroup(containerAppsManagedResourceGroup)
 }
 
-// resource privateLinkService 'Microsoft.Network/privateLinkServices@2022-01-01' = {
-//   name: privateLinkServiceName
-//   location: location
-//   properties: {
-//     loadBalancerFrontendIpConfigurations: [
-//       {
-//         id: loadBalancer.properties.frontendIPConfigurations[0].id
-//       }
-//     ]
-//     ipConfigurations: [
-//       {
-//         name: 'snet-provider-default-1'
-//         properties: {
-//           privateIPAllocationMethod: 'Dynamic'
-//           subnet: {
-//             id: vnetSubnetId
-//           }
-//           primary: true
-//           privateIPAddressVersion: 'IPv4'
-//         }
-//       }
-//     ]
-//   }
-// }
+resource privateLinkService 'Microsoft.Network/privateLinkServices@2022-01-01' = {
+  name: privateLinkServiceName
+  location: location
+  properties: {
+    loadBalancerFrontendIpConfigurations: [
+      {
+        id: loadBalancer.properties.frontendIPConfigurations[0].id
+      }
+    ]
+    ipConfigurations: [
+      {
+        name: 'snet-provider-default-1'
+        properties: {
+          privateIPAllocationMethod: 'Dynamic'
+          subnet: {
+            id: vnetSubnetId
+          }
+          primary: true
+          privateIPAddressVersion: 'IPv4'
+        }
+      }
+    ]
+  }
+}
 
-// output privateLinkServiceName string = privateLinkService.name
-// output privateLinkServiceId string = privateLinkService.id
+output privateLinkServiceName string = privateLinkService.name
+output privateLinkServiceId string = privateLinkService.id
