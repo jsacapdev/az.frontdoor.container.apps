@@ -30,14 +30,14 @@ resource frontDoorProfile 'Microsoft.Cdn/profiles@2022-05-01-preview' = {
   }
 }
 
-// resource frontDoorEndpoint 'Microsoft.Cdn/profiles/afdendpoints@2022-05-01-preview' = {
-//   parent: frontDoorProfile
-//   name: frontDoorEndpointName
-//   location: 'Global'
-//   properties: {
-//     enabledState: 'Enabled'
-//   }
-// }
+resource frontDoorEndpoint 'Microsoft.Cdn/profiles/afdendpoints@2022-05-01-preview' = {
+  parent: frontDoorProfile
+  name: frontDoorEndpointName
+  location: 'Global'
+  properties: {
+    enabledState: 'Enabled'
+  }
+}
 
 // resource frontDoorOriginGroup 'Microsoft.Cdn/profiles/origingroups@2022-05-01-preview' = {
 //   parent: frontDoorProfile
