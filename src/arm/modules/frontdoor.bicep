@@ -18,7 +18,7 @@ var frontDoorOriginRouteName = 'fd-route-${baseName}'
 var frontDoorOriginName = 'fd-origin-${baseName}'
 
 
-resource frontDoorProfile 'Microsoft.Cdn/profiles@2022-05-01-preview' = {
+resource frontDoorProfile 'Microsoft.Cdn/profiles@2022-11-01-preview' = {
   name: frontDoorProfileName
   location: 'Global'
   sku: {
@@ -30,7 +30,7 @@ resource frontDoorProfile 'Microsoft.Cdn/profiles@2022-05-01-preview' = {
   }
 }
 
-resource frontDoorEndpoint 'Microsoft.Cdn/profiles/afdendpoints@2022-05-01-preview' = {
+resource frontDoorEndpoint 'Microsoft.Cdn/profiles/afdEndpoints@2022-11-01-preview' = {
   parent: frontDoorProfile
   name: frontDoorEndpointName
   location: 'Global'
@@ -39,7 +39,7 @@ resource frontDoorEndpoint 'Microsoft.Cdn/profiles/afdendpoints@2022-05-01-previ
   }
 }
 
-resource frontDoorOriginGroup 'Microsoft.Cdn/profiles/origingroups@2022-05-01-preview' = {
+resource frontDoorOriginGroup 'Microsoft.Cdn/profiles/originGroups@2022-11-01-preview' = {
   parent: frontDoorProfile
   name: frontDoorOriginGroupName
   properties: {
@@ -58,27 +58,27 @@ resource frontDoorOriginGroup 'Microsoft.Cdn/profiles/origingroups@2022-05-01-pr
   }
 }
 
-// resource frontDoorOrigin 'Microsoft.Cdn/profiles/origingroups/origins@2022-05-01-preview' = {
-//   parent: frontDoorOriginGroup
-//   name: frontDoorOriginName
-//   properties: {
-//     hostName: frontDoorAppHostName
-//     httpPort: 80
-//     httpsPort: 443
-//     originHostHeader: frontDoorAppHostName
-//     priority: 1
-//     weight: 1000
-//     enabledState: 'Enabled'
-//     sharedPrivateLinkResource: {
-//       privateLink: {
-//         id: privateLinkServiceId
-//       }
-//       privateLinkLocation: location
-//       requestMessage: 'frontdoor'
-//     }
-//     enforceCertificateNameCheck: true
-//   }
-// }
+resource frontDoorOrigin 'Microsoft.Cdn/profiles/originGroups/origins@2022-11-01-preview' = {
+  parent: frontDoorOriginGroup
+  name: frontDoorOriginName
+  properties: {
+    hostName: frontDoorAppHostName
+    httpPort: 80
+    httpsPort: 443
+    originHostHeader: frontDoorAppHostName
+    priority: 1
+    weight: 1000
+    enabledState: 'Enabled'
+    sharedPrivateLinkResource: {
+      privateLink: {
+        id: privateLinkServiceId
+      }
+      privateLinkLocation: location
+      requestMessage: 'frontdoor'
+    }
+    enforceCertificateNameCheck: true
+  }
+}
 
 // resource frontDoorOriginRoute 'Microsoft.Cdn/profiles/afdendpoints/routes@2022-05-01-preview' = {
 //   parent: frontDoorEndpoint
