@@ -17,16 +17,14 @@ The Azure Container Application service runs behind a Standard Azure Load Balanc
 
 ![ACA](https://github.com/jsacapdev/az.frontdoor.container.apps/blob/main/assets/architecture.png?)
 
-## Scratch space notes
+## Running the app container locally
 
-Notes on running the application docker container locally.
+The following are notes on running the application docker container locally:
 
 ``` pwsh
 export CR_PAT=<PAT>
 
 echo $CR_PAT | docker login ghcr.io -u jsacapdev --password-stdin
-
-docker pull ghcr.io/NAMESPACE/IMAGE_NAME
 
 docker pull ghcr.io/jsacapdev/nodeapp:latest
 
