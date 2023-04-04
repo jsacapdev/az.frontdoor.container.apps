@@ -1,7 +1,8 @@
 name: Deploy Infrastructure
 
-on: [push]
-
+on:
+  workflow_dispatch:
+  
 env:
   BASE_NAME: aca-dev-001
   LOCATION: uksouth
