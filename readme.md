@@ -15,7 +15,7 @@ Azure Front Door provides the front door to the application architecture from th
 
 The Azure Container Application service runs behind a Standard Azure Load Balancer. The Azure Container App is enabled for the Private Link Service. That Private Link Service ensures that traffic flows privately from from Azure Front Door.
 
-![Architecture](./assets/architecture.png "Azure Architecture")
+![ACA](./assets/architecture.png?)
 
 ## Scratch space notes
 
