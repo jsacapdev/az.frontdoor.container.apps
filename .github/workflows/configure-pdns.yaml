@@ -37,4 +37,4 @@ jobs:
         with:
           inlineScript: |
             chmod +x $GITHUB_WORKSPACE/src/arm/pdns.sh 
-            $GITHUB_WORKSPACE/src/arm/pdns.sh ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }} ${{ steps.set-vars.outputs.CONTAINER_APP_ENV }} ${{ env.LOCATION }} ${{ steps.set-vars.outputs.APPS_VNET_NAME }} ${{ steps.set-vars.outputs.SHARED_VNET_NAME }}
+            $GITHUB_WORKSPACE/src/arm/pdns.sh ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }} ${{ steps.set-vars.outputs.CONTAINER_APP_ENV }} ${{ env.LOCATION }} ${{ steps.set-vars.outputs.SHARED_RESOURCE_GROUP_NAME }} ${{ steps.set-vars.outputs.APPS_VNET_NAME }} ${{ steps.set-vars.outputs.SHARED_VNET_NAME }}
