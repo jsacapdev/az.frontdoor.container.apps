@@ -26,12 +26,14 @@ az extension add --name containerapp
 DEFAULT_DOMAIN=$(az containerapp env show \
                 -n $CONTAINER_ENV_NAME \
                 -g $CONTAINER_RESOURCE_GROUP_NAME \
+                -output none \
                 -o tsv \
                 --query properties.defaultDomain)
 
 # get all the private dns zones configured in the central 'hub' vnet
 DNS_ZONES=$(az network private-dns zone list \
                   -g $SHARED_RESOURCE_GROUP_NAME \
+                  -output none \
                   -o tsv \
                   --query [*].name)
 
@@ -53,26 +55,26 @@ MANAGED_CONTAINER_RESOURCE_GROUP_NAME="mc_${arrIN[0]}-rg_${arrIN[0]}_$LOCATION"
 PRIVATE_IP_ADDRESSES=$(az network lb show \
                        -g $MANAGED_CONTAINER_RESOURCE_GROUP_NAME \
                        -n kubernetes-internal \
+                       -output none \
                        -o tsv \
                        --query frontendIPConfigurations[].privateIPAddress)
 
 # create a private dns zone for container apps default domain
-az network private-dns zone create -g $SHARED_RESOURCE_GROUP_NAME -n $DEFAULT_DOMAIN
+az network private-dns zone create -g $SHARED_RESOURCE_GROUP_NAME -n $DEFAULT_DOMAIN -output none
 
 # join the shared vnet to the new private dns zone
-SHARED_VNET_ID=$(az network vnet show -g $SHARED_RESOURCE_GROUP_NAME -n $SHARED_VNET_NAME --query id --out tsv)
+SHARED_VNET_ID=$(az network vnet show -g $SHARED_RESOURCE_GROUP_NAME -n $SHARED_VNET_NAME --query id --out tsv -output none)
 
 az network private-dns link vnet create -g $SHARED_RESOURCE_GROUP_NAME -n $SHARED_VNET_NAME -z $DEFAULT_DOMAIN -v $SHARED_VNET_ID -e False
 
 # join the container apps vnet to the new private dns zone
-APPS_VNET_ID=$(az network vnet show -g $CONTAINER_RESOURCE_GROUP_NAME -n $CONTAINER_APPS_VNET_NAME --query id --out tsv)
+APPS_VNET_ID=$(az network vnet show -g $CONTAINER_RESOURCE_GROUP_NAME -n $CONTAINER_APPS_VNET_NAME --query id --out tsv -output none)
 
-az network private-dns link vnet create -g $SHARED_RESOURCE_GROUP_NAME -n $CONTAINER_APPS_VNET_NAME -z $DEFAULT_DOMAIN -v $APPS_VNET_ID -e False
+az network private-dns link vnet create -g $SHARED_RESOURCE_GROUP_NAME -n $CONTAINER_APPS_VNET_NAME -z $DEFAULT_DOMAIN -v $APPS_VNET_ID -e False -output none
 
 # add the private IP's to newly created default domain to ensure clients on the internal network can resolve to the IP using DNS
 for ip in $PRIVATE_IP_ADDRESSES; do
-    echo $ip
-    az network private-dns record-set a add-record -g $SHARED_RESOURCE_GROUP_NAME -z $DEFAULT_DOMAIN -n "*" -a $ip
+    az network private-dns record-set a add-record -g $SHARED_RESOURCE_GROUP_NAME -z $DEFAULT_DOMAIN -n "*" -a $ip -output none
 done                       
 
 echo "Finished."
