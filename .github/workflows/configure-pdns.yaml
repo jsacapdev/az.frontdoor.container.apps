@@ -27,12 +27,12 @@ jobs:
         id: set-vars
         run: | 
           echo "RESOURCE_GROUP_NAME=rg-${{ env.BASE_NAME }}" >> $GITHUB_OUTPUT
-          echo "SHARED_RESOURCE_GROUP_NAME=rg-${{ env.SHARED_BASE_NAME }}" >> $GITHUB_OUTPUT
+          echo "SHARED_RESOURCE_GROUP_NAME=rg-a${{ env.SHARED_BASE_NAME }}" >> $GITHUB_OUTPUT
           echo "CONTAINER_APP_ENV=cae-${{ env.BASE_NAME }}" >> $GITHUB_OUTPUT
           echo "APPS_VNET_NAME=vnet-${{ env.BASE_NAME }}" >> $GITHUB_OUTPUT
           echo "SHARED_VNET_NAME=vnet-${{ env.SHARED_BASE_NAME }}" >> $GITHUB_OUTPUT
 
-      - name: Deploy Bicep
+      - name: Configure Private DNS for Container Apps
         uses: Azure/cli@v1
         with:
           inlineScript: |
