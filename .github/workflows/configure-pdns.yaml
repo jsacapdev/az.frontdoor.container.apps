@@ -23,9 +23,6 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Install jq
-        uses: dcarbone/install-jq-action@v1.0.1
-
       - name: Set variables
         id: set-vars
         run: | 
