@@ -7,8 +7,11 @@
         {
             "type": "bashdb",
             "request": "launch",
-            "name": "Bash-Debug (simplest configuration)",
-            "program": "${file}"
-        }
+            "name": "Bash simple",
+            "cwd": "${workspaceFolder}",
+            "args": ["rg-aca-dev-001", "cae-aca-dev-001", "uksouth", "rg-aca-shared-001", "vnet-aca-dev-001", "vnet-ca-shared-001"],
+            "program": "pdns.sh",
+            "terminalKind": "integrated"
+          }
     ]
 }

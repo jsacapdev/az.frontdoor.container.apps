@@ -1,0 +1,43 @@
+name: Configure DNS (Only for Hub VNET)
+
+on:
+  workflow_dispatch:
+  
+env:
+  BASE_NAME: aca-dev-001
+  SHARED_BASE_NAME: ca-shared-001
+  LOCATION: uksouth
+
+jobs:
+  deploy-ca-infrastructure:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Log in to Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Install jq
+        uses: dcarbone/install-jq-action@v1.0.1
+
+      - name: Set variables
+        id: set-vars
+        run: | 
+          echo "RESOURCE_GROUP_NAME=rg-${{ env.BASE_NAME }}" >> $GITHUB_OUTPUT
+          echo "SHARED_RESOURCE_GROUP_NAME=rg-${{ env.SHARED_BASE_NAME }}" >> $GITHUB_OUTPUT
+          echo "CONTAINER_APP_ENV=cae-${{ env.BASE_NAME }}" >> $GITHUB_OUTPUT
+          echo "APPS_VNET_NAME=vnet-${{ env.BASE_NAME }}" >> $GITHUB_OUTPUT
+          echo "SHARED_VNET_NAME=vnet-${{ env.SHARED_BASE_NAME }}" >> $GITHUB_OUTPUT
+
+      - name: Deploy Bicep
+        uses: Azure/cli@v1
+        with:
+          inlineScript: |
+            chmod +x $GITHUB_WORKSPACE/src/arm/pdns.sh 
+            $GITHUB_WORKSPACE/src/arm/pdns.sh ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }} ${{ steps.set-vars.outputs.CONTAINER_APP_ENV }} ${{ env.LOCATION }} ${{ steps.set-vars.outputs.APPS_VNET_NAME }} ${{ steps.set-vars.outputs.SHARED_VNET_NAME }}
