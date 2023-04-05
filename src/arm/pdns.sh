@@ -16,6 +16,12 @@ SHARED_RESOURCE_GROUP_NAME=$4
 CONTAINER_APPS_VNET_NAME=$5
 SHARED_VNET_NAME=$6
 
+# workaround to get bicep to work with azure cli github action
+az config set bicep.use_binary_from_path=false
+az config set extension.use_dynamic_install=yes_without_prompt
+az bicep install
+az extension add --name containerapp
+
 # get the default domain for the azure container app envioronment 
 DEFAULT_DOMAIN=$(az containerapp env show \
                 -n $CONTAINER_ENV_NAME \
