@@ -13,7 +13,7 @@ param frontDoorAppHostName string
 // Define names
 var frontDoorProfileName = 'fd-${baseName2}-001'
 
-// var frontDoorEndpointName = 'fd-endpoint-${baseName}'
+var app1EndpointName = 'fd-endpoint-${baseName2}-001'
 // var frontDoorOriginGroupName = 'fd-og-${baseName}'
 // var frontDoorOriginRouteName = 'fd-route-${baseName}'
 // var frontDoorOriginName = 'fd-origin-${baseName}'
@@ -30,14 +30,14 @@ resource frontDoorProfile 'Microsoft.Cdn/profiles@2022-11-01-preview' = {
   }
 }
 
-// resource frontDoorEndpoint 'Microsoft.Cdn/profiles/afdEndpoints@2022-11-01-preview' = {
-//   parent: frontDoorProfile
-//   name: frontDoorEndpointName
-//   location: 'Global'
-//   properties: {
-//     enabledState: 'Enabled'
-//   }
-// }
+resource app1Endpoint 'Microsoft.Cdn/profiles/afdEndpoints@2022-11-01-preview' = {
+  parent: frontDoorProfile
+  name: app1EndpointName
+  location: 'Global'
+  properties: {
+    enabledState: 'Enabled'
+  }
+}
 
 // resource frontDoorOriginGroup 'Microsoft.Cdn/profiles/originGroups@2022-11-01-preview' = {
 //   parent: frontDoorProfile
