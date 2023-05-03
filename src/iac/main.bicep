@@ -15,7 +15,7 @@ module network './modules/network.bicep' = {
 }
 
 module logAnalytics './modules/loganalytics.bicep' = {
-  name: 'logAnalytics'
+  name: 'loganalytics'
   params: {
     location: location
     baseName: baseName
@@ -33,7 +33,7 @@ module containerAppsEnv './modules/containerappsenv.bicep' = {
 }
 
 module containerApp './modules/containerapp.bicep' = {
-  name: 'containerApp'
+  name: 'containerapp'
   params: {
     location: location
     baseName: baseName
