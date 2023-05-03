@@ -14,7 +14,7 @@ module network './modules/network.bicep' = {
   }
 }
 
-module logAnalytics './modules/logAnalytics.bicep' = {
+module logAnalytics './modules/loganalytics.bicep' = {
   name: 'logAnalytics'
   params: {
     location: location
@@ -22,7 +22,7 @@ module logAnalytics './modules/logAnalytics.bicep' = {
   }
 }
 
-module containerAppsEnv './modules/containerAppsEnv.bicep' = {
+module containerAppsEnv './modules/containerappsenv.bicep' = {
   name: 'containerapps'
   params: {
     location: location
@@ -32,7 +32,7 @@ module containerAppsEnv './modules/containerAppsEnv.bicep' = {
   }
 }
 
-module containerApp './modules/containerApp.bicep' = {
+module containerApp './modules/containerapp.bicep' = {
   name: 'containerApp'
   params: {
     location: location
@@ -42,7 +42,7 @@ module containerApp './modules/containerApp.bicep' = {
   }
 }
 
-module privateLinkService './modules/privateLinkService.bicep' = {
+module privateLinkService './modules/privatelinkservice.bicep' = {
   name: 'privatelink'
   params: {
     location: location
@@ -76,15 +76,15 @@ module frontDoor './modules/frontdoor.bicep' = {
 
 // Prepare Output
 // var privateLinkEndpointConnectionId = readPrivateLinkService.outputs.privateLinkEndpointConnectionId
-var fqdn = frontDoor.outputs.fqdn
+// var fqdn = frontDoor.outputs.fqdn
 
 // Outputs
-output frontdoor_fqdn string = fqdn
+// output frontdoor_fqdn string = fqdn
 // output privateLinkEndpointConnectionId string = privateLinkEndpointConnectionId
 
-output result object = {
-  fqdn: fqdn
-  privateLinkServiceId: privateLinkService.outputs.privateLinkServiceId
-  // privateLinkEndpointConnectionId: privateLinkEndpointConnectionId
-}
+// output result object = {
+//   fqdn: fqdn
+//   privateLinkServiceId: privateLinkService.outputs.privateLinkServiceId
+//   // privateLinkEndpointConnectionId: privateLinkEndpointConnectionId
+// }
 
