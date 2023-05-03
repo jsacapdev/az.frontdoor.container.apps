@@ -1,5 +1,5 @@
 @description('Basename / Prefix of all resources')
-param baseName string
+param baseName2 string
 
 @description('Azure Location/Region')
 param location string 
@@ -11,7 +11,7 @@ param privateLinkServiceId string
 param frontDoorAppHostName string
 
 // Define names
-var frontDoorProfileName = 'fd-${baseName}'
+var frontDoorProfileName = 'fd-${baseName2}-001'
 
 // var frontDoorEndpointName = 'fd-endpoint-${baseName}'
 // var frontDoorOriginGroupName = 'fd-og-${baseName}'

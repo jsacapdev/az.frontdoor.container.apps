@@ -5,6 +5,7 @@ on:
   
 env:
   BASE_NAME: aca-dev-001
+  BASE_NAME_2: aca-dev  
   LOCATION: uksouth
 
 jobs:
@@ -41,8 +42,8 @@ jobs:
         uses: Azure/cli@v1
         with:
           inlineScript: |
-            chmod +x $GITHUB_WORKSPACE/src/iac/deploy.sh 
-            $GITHUB_WORKSPACE/src/iac/deploy.sh ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }} ${{ steps.set-vars.outputs.DEPLOYMENT_NAME }} ${{ env.BASE_NAME }} $GITHUB_WORKSPACE/src/iac/
+            chmod +x $GITHUB_WORKSPACE/src/iac/deploy.sh
+            $GITHUB_WORKSPACE/src/iac/deploy.sh ${{ steps.set-vars.outputs.RESOURCE_GROUP_NAME }} ${{ steps.set-vars.outputs.DEPLOYMENT_NAME }} ${{ env.BASE_NAME }} ${{ env.BASE_NAME_2 }} $GITHUB_WORKSPACE/src/iac/
 
       - name: Get Outputs
         id: get-outputs

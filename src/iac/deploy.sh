@@ -5,12 +5,14 @@ echo "Parameters..."
 echo "Resource Group -> $1";
 echo "Deployment Name -> $2";
 echo "Base Name -> $3";
-echo "Workspace -> $4";
+echo "Base Name 2 -> $4";
+echo "Workspace -> $5";
 
 RESOURCE_GROUP_NAME=$1
 DEPLOYMENT_NAME=$2
 BASE_NAME=$3
-WORKSPACE=$4
+BASE_NAME_2=$4
+WORKSPACE=$5
 
 # workaround to get bicep to work with azure cli github action
 az config set bicep.use_binary_from_path=false
@@ -22,6 +24,7 @@ result=$(az deployment group create \
     --template-file $WORKSPACE/main.bicep \
     --parameters \
     baseName=$BASE_NAME \
+    baseName2=$BASE_NAME_2 \
     -o json \
     --query properties.outputs.result.value)
 

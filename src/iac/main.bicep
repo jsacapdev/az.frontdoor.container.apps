@@ -6,6 +6,11 @@ param location string = resourceGroup().location
 @maxLength(12)
 param baseName string
 
+@description('Basename for all resources')
+@minLength(4)
+@maxLength(12)
+param baseName2 string
+
 module network './modules/network.bicep' = {
   name: 'network'
   params: {
@@ -55,7 +60,7 @@ module privateLinkService './modules/privatelinkservice.bicep' = {
 module frontDoor './modules/frontdoor.bicep' = {
   name: 'frontdoor'
   params: {
-    baseName: baseName
+    baseName2: baseName2
     location: location
     privateLinkServiceId: privateLinkService.outputs.privateLinkServiceId
     frontDoorAppHostName: containerApp.outputs.containerFqdn
