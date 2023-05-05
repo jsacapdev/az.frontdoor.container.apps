@@ -57,8 +57,8 @@ jobs:
       #     inlineScript: |
       #       az network private-endpoint-connection approve --id ${{ steps.get-outputs.outputs.PRIVATE_LINK_ENDPOINT_CONNECTION_ID }} --description "(Frontdoor) Approved by CI/CD"
 
-      # - name: Final Outputs
-      #   run: |
-      #     echo "...Deployment FINISHED!"
-      #     echo "Please wait a few minutes until endpoint is established..."
-      #     echo "--- FrontDoor FQDN: https://${{ steps.get-outputs.outputs.FQDN }} ---"            
+      - name: Final Outputs
+        run: |
+          echo "...Deployment FINISHED!"
+          echo "Please wait a few minutes until endpoint is established..."
+          echo "--- FrontDoor FQDN: https://${{ steps.get-outputs.outputs.FQDN }} ---"            

@@ -16,8 +16,7 @@ var frontDoorProfileName = 'fd-${baseName2}-001'
 var app1EndpointName = 'fd-endpoint-${baseName2}-001'
 var app1OriginGroupName = 'fd-og-${baseName2}-001'
 var app1OriginName = 'fd-origin-${baseName2}-001'
-
-// var frontDoorOriginRouteName = 'fd-route-${baseName}'
+var app1OriginRouteName = 'fd-route-${baseName2}-001'
 
 resource frontDoorProfile 'Microsoft.Cdn/profiles@2022-11-01-preview' = {
   name: frontDoorProfileName
@@ -80,31 +79,31 @@ resource app1Origin 'Microsoft.Cdn/profiles/originGroups/origins@2022-11-01-prev
   }
 }
 
-// resource frontDoorOriginRoute 'Microsoft.Cdn/profiles/afdendpoints/routes@2022-05-01-preview' = {
-//   parent: frontDoorEndpoint
-//   name: frontDoorOriginRouteName
-//   properties: {
-//     originGroup: {
-//       id: frontDoorOriginGroup.id
-//     }
-//     originPath: '/'
-//     ruleSets: []
-//     supportedProtocols: [
-//       'Http'
-//       'Https'
-//     ]
-//     patternsToMatch: [
-//       '/*'
-//     ]
-//     forwardingProtocol: 'HttpsOnly'
-//     linkToDefaultDomain: 'Enabled'
-//     httpsRedirect: 'Enabled'
-//     enabledState: 'Enabled'
-//   }
+resource api1OriginRoute 'Microsoft.Cdn/profiles/afdendpoints/routes@2022-05-01-preview' = {
+  parent: app1Endpoint
+  name: app1OriginRouteName
+  properties: {
+    originGroup: {
+      id: app1OriginGroup.id
+    }
+    originPath: '/'
+    ruleSets: []
+    supportedProtocols: [
+      'Http'
+      'Https'
+    ]
+    patternsToMatch: [
+      '/*'
+    ]
+    forwardingProtocol: 'HttpsOnly'
+    linkToDefaultDomain: 'Enabled'
+    httpsRedirect: 'Enabled'
+    enabledState: 'Enabled'
+  }
 
-//   dependsOn: [
-//     frontDoorOrigin
-//   ]
-// }
+  dependsOn: [
+    app1Origin
+  ]
+}
 
-// output fqdn string = frontDoorEndpoint.properties.hostName
+output fqdn string = app1Endpoint.properties.hostName

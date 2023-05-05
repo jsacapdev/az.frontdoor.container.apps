@@ -81,15 +81,15 @@ module frontDoor './modules/frontdoor.bicep' = {
 
 // Prepare Output
 // var privateLinkEndpointConnectionId = readPrivateLinkService.outputs.privateLinkEndpointConnectionId
-// var fqdn = frontDoor.outputs.fqdn
+var fqdn = frontDoor.outputs.fqdn
 
 // Outputs
-// output frontdoor_fqdn string = fqdn
+output frontdoor_fqdn string = fqdn
 // output privateLinkEndpointConnectionId string = privateLinkEndpointConnectionId
 
-// output result object = {
-//   fqdn: fqdn
-//   privateLinkServiceId: privateLinkService.outputs.privateLinkServiceId
-//   // privateLinkEndpointConnectionId: privateLinkEndpointConnectionId
-// }
+output result object = {
+  fqdn: fqdn
+  privateLinkServiceId: privateLinkService.outputs.privateLinkServiceId
+  // privateLinkEndpointConnectionId: privateLinkEndpointConnectionId
+}
 
