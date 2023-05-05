@@ -14,9 +14,10 @@ param frontDoorAppHostName string
 var frontDoorProfileName = 'fd-${baseName2}-001'
 
 var app1EndpointName = 'fd-endpoint-${baseName2}-001'
-// var frontDoorOriginGroupName = 'fd-og-${baseName}'
+var app1OriginGroupName = 'fd-og-${baseName2}-001'
+var app1OriginName = 'fd-origin-${baseName2}-001'
+
 // var frontDoorOriginRouteName = 'fd-route-${baseName}'
-// var frontDoorOriginName = 'fd-origin-${baseName}'
 
 resource frontDoorProfile 'Microsoft.Cdn/profiles@2022-11-01-preview' = {
   name: frontDoorProfileName
@@ -26,7 +27,6 @@ resource frontDoorProfile 'Microsoft.Cdn/profiles@2022-11-01-preview' = {
   }
   properties: {
     originResponseTimeoutSeconds: 120
-    extendedProperties: {}
   }
 }
 
@@ -39,46 +39,46 @@ resource app1Endpoint 'Microsoft.Cdn/profiles/afdEndpoints@2022-11-01-preview' =
   }
 }
 
-// resource frontDoorOriginGroup 'Microsoft.Cdn/profiles/originGroups@2022-11-01-preview' = {
-//   parent: frontDoorProfile
-//   name: frontDoorOriginGroupName
-//   properties: {
-//     loadBalancingSettings: {
-//       sampleSize: 4
-//       successfulSamplesRequired: 3
-//       additionalLatencyInMilliseconds: 50
-//     }
-//     healthProbeSettings: {
-//       probePath: '/health'
-//       probeRequestType: 'HEAD'
-//       probeProtocol: 'Https'
-//       probeIntervalInSeconds: 100
-//     }
-//     sessionAffinityState: 'Disabled'
-//   }
-// }
+resource app1OriginGroup 'Microsoft.Cdn/profiles/originGroups@2022-11-01-preview' = {
+  parent: frontDoorProfile
+  name: app1OriginGroupName
+  properties: {
+    loadBalancingSettings: {
+      sampleSize: 4
+      successfulSamplesRequired: 3
+      additionalLatencyInMilliseconds: 50
+    }
+    healthProbeSettings: {
+      probePath: '/health'
+      probeRequestType: 'HEAD'
+      probeProtocol: 'Https'
+      probeIntervalInSeconds: 100
+    }
+    sessionAffinityState: 'Disabled'
+  }
+}
 
-// resource frontDoorOrigin 'Microsoft.Cdn/profiles/originGroups/origins@2022-11-01-preview' = {
-//   parent: frontDoorOriginGroup
-//   name: frontDoorOriginName
-//   properties: {
-//     hostName: frontDoorAppHostName
-//     httpPort: 80
-//     httpsPort: 443
-//     originHostHeader: frontDoorAppHostName
-//     priority: 1
-//     weight: 1000
-//     enabledState: 'Enabled'
-//     sharedPrivateLinkResource: {
-//       privateLink: {
-//         id: privateLinkServiceId
-//       }
-//       privateLinkLocation: location
-//       requestMessage: 'frontdoor'
-//     }
-//     enforceCertificateNameCheck: true
-//   }
-// }
+resource app1Origin 'Microsoft.Cdn/profiles/originGroups/origins@2022-11-01-preview' = {
+  parent: app1OriginGroup
+  name: app1OriginName
+  properties: {
+    hostName: frontDoorAppHostName
+    httpPort: 80
+    httpsPort: 443
+    originHostHeader: frontDoorAppHostName
+    priority: 1
+    weight: 1000
+    enabledState: 'Enabled'
+    sharedPrivateLinkResource: {
+      privateLink: {
+        id: privateLinkServiceId
+      }
+      privateLinkLocation: location
+      requestMessage: 'frontdoor'
+    }
+    enforceCertificateNameCheck: true
+  }
+}
 
 // resource frontDoorOriginRoute 'Microsoft.Cdn/profiles/afdendpoints/routes@2022-05-01-preview' = {
 //   parent: frontDoorEndpoint

@@ -36,3 +36,31 @@ curl -i localhost:49160/health
 
 docker exec -it <container id> /bin/bash
 ```
+
+## Useful GitHub Cli Commands
+
+Set-Up the environment to install the GitHub CLI:
+
+``` pwsh
+conda create --name git-cli python=3.9.16
+
+conda activate git-cli
+
+conda install gh --channel conda-forge
+```
+
+Login to GitHub and then kick off a workflow:
+
+`gh workflow run deploy-iac.yaml`
+
+And to watch during:
+
+``` pwsh
+gh workflow list
+
+gh workflow run deploy-iac.yaml
+
+gh workflow view [ID]
+
+gh run watch [ID]
+```
