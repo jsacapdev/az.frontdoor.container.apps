@@ -1,5 +1,5 @@
 @description('Basename / Prefix of all resources')
-param baseName string
+param baseName2 string
 
 @description('Azure Location/Region')
 param location string 
@@ -11,12 +11,12 @@ param privateLinkServiceId string
 param frontDoorAppHostName string
 
 // Define names
-var frontDoorProfileName = 'fd-${baseName}'
+var frontDoorProfileName = 'fd-${baseName2}-002'
 
-var frontDoorEndpointName = 'fd-endpoint-${baseName}'
-var frontDoorOriginGroupName = 'fd-og-${baseName}'
-var frontDoorOriginRouteName = 'fd-route-${baseName}'
-var frontDoorOriginName = 'fd-origin-${baseName}'
+var app1EndpointName = 'fd-endpoint-${baseName2}-002'
+var app1OriginGroupName = 'fd-og-${baseName2}-002'
+var app1OriginName = 'fd-origin-${baseName2}-002'
+var app1OriginRouteName = 'fd-route-${baseName2}-002'
 
 resource frontDoorProfile 'Microsoft.Cdn/profiles@2022-11-01-preview' = {
   name: frontDoorProfileName
@@ -26,22 +26,21 @@ resource frontDoorProfile 'Microsoft.Cdn/profiles@2022-11-01-preview' = {
   }
   properties: {
     originResponseTimeoutSeconds: 120
-    extendedProperties: {}
   }
 }
 
-resource frontDoorEndpoint 'Microsoft.Cdn/profiles/afdEndpoints@2022-11-01-preview' = {
+resource app1Endpoint 'Microsoft.Cdn/profiles/afdEndpoints@2022-11-01-preview' = {
   parent: frontDoorProfile
-  name: frontDoorEndpointName
+  name: app1EndpointName
   location: 'Global'
   properties: {
     enabledState: 'Enabled'
   }
 }
 
-resource frontDoorOriginGroup 'Microsoft.Cdn/profiles/originGroups@2022-11-01-preview' = {
+resource app1OriginGroup 'Microsoft.Cdn/profiles/originGroups@2022-11-01-preview' = {
   parent: frontDoorProfile
-  name: frontDoorOriginGroupName
+  name: app1OriginGroupName
   properties: {
     loadBalancingSettings: {
       sampleSize: 4
@@ -58,9 +57,9 @@ resource frontDoorOriginGroup 'Microsoft.Cdn/profiles/originGroups@2022-11-01-pr
   }
 }
 
-resource frontDoorOrigin 'Microsoft.Cdn/profiles/originGroups/origins@2022-11-01-preview' = {
-  parent: frontDoorOriginGroup
-  name: frontDoorOriginName
+resource app1Origin 'Microsoft.Cdn/profiles/originGroups/origins@2022-11-01-preview' = {
+  parent: app1OriginGroup
+  name: app1OriginName
   properties: {
     hostName: frontDoorAppHostName
     httpPort: 80
@@ -80,12 +79,12 @@ resource frontDoorOrigin 'Microsoft.Cdn/profiles/originGroups/origins@2022-11-01
   }
 }
 
-resource frontDoorOriginRoute 'Microsoft.Cdn/profiles/afdendpoints/routes@2022-05-01-preview' = {
-  parent: frontDoorEndpoint
-  name: frontDoorOriginRouteName
+resource api1OriginRoute 'Microsoft.Cdn/profiles/afdendpoints/routes@2022-05-01-preview' = {
+  parent: app1Endpoint
+  name: app1OriginRouteName
   properties: {
     originGroup: {
-      id: frontDoorOriginGroup.id
+      id: app1OriginGroup.id
     }
     originPath: '/'
     ruleSets: []
@@ -103,8 +102,8 @@ resource frontDoorOriginRoute 'Microsoft.Cdn/profiles/afdendpoints/routes@2022-0
   }
 
   dependsOn: [
-    frontDoorOrigin
+    app1Origin
   ]
 }
 
-output fqdn string = frontDoorEndpoint.properties.hostName
+output fqdn string = app1Endpoint.properties.hostName
