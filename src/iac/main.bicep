@@ -60,7 +60,7 @@ module privateLinkService './modules/privatelinkservice.bicep' = {
 module frontDoor './modules/frontdoor.bicep' = {
   name: 'frontdoor'
   params: {
-    baseName2: baseName2
+    baseName: baseName
     location: location
     privateLinkServiceId: privateLinkService.outputs.privateLinkServiceId
     frontDoorAppHostName: containerApp.outputs.containerFqdn
