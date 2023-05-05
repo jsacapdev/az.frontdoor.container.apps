@@ -11,12 +11,12 @@ param privateLinkServiceId string
 param frontDoorAppHostName string
 
 // Define names
-var frontDoorProfileName = 'fd-${baseName2}-002'
+var frontDoorProfileName = 'fd-${baseName2}-003'
 
-var app1EndpointName = 'fd-endpoint-${baseName2}-002'
-var app1OriginGroupName = 'fd-og-${baseName2}-002'
-var app1OriginName = 'fd-origin-${baseName2}-002'
-var app1OriginRouteName = 'fd-route-${baseName2}-002'
+var app1EndpointName = 'fd-endpoint-${baseName2}-003'
+var app1OriginGroupName = 'fd-og-${baseName2}-003'
+var app1OriginName = 'fd-origin-${baseName2}-003'
+var app1OriginRouteName = 'fd-route-${baseName2}-003'
 
 resource frontDoorProfile 'Microsoft.Cdn/profiles@2022-11-01-preview' = {
   name: frontDoorProfileName
