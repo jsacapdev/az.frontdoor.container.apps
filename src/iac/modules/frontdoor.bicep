@@ -37,6 +37,7 @@ resource app1Endpoint 'Microsoft.Cdn/profiles/afdEndpoints@2022-11-01-preview' =
   parent: frontDoorProfile
   name: app1EndpointName
   location: 'Global'
+  tags: tags  
   properties: {
     enabledState: 'Enabled'
   }
