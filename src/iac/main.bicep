@@ -2,17 +2,16 @@
 param location string = resourceGroup().location
 
 @description('Basename for all resources')
-@minLength(4)
-@maxLength(12)
 param baseName string
 
 @description('Basename for all resources')
-@minLength(4)
-@maxLength(12)
 param baseName2 string
 
+@description('Product Owner Name')
+param productOwner string
+
 param tags object = {
-  productOwner: 'AppTeam1'
+  productOwner: productOwner
   application: 'container apps'
   environment: 'dev'
   projectCode: 'nonbillable'

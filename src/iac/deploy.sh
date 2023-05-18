@@ -6,13 +6,15 @@ echo "Resource Group -> $1";
 echo "Deployment Name -> $2";
 echo "Base Name -> $3";
 echo "Base Name 2 -> $4";
-echo "Workspace -> $5";
+echo "PO -> $5";
+echo "Workspace -> $6";
 
 RESOURCE_GROUP_NAME=$1
 DEPLOYMENT_NAME=$2
 BASE_NAME=$3
 BASE_NAME_2=$4
-WORKSPACE=$5
+PO=$5
+WORKSPACE=$6
 
 # workaround to get bicep to work with azure cli github action
 az config set bicep.use_binary_from_path=false
@@ -25,6 +27,7 @@ result=$(az deployment group create \
     --parameters \
     baseName=$BASE_NAME \
     baseName2=$BASE_NAME_2 \
+    productOwner=$PO \
     -o json \
     --query properties.outputs.result.value)
 
