@@ -5,4 +5,7 @@ GET http://localhost:3000/health HTTP/1.1
 GET http://localhost:49160/health HTTP/1.1
 
 ### through front door
-GET https://fd-endpoint-aca-dev-003-g6ftgpcbh4hmdxd7.z01.azurefd.net/health HTTP/1.1
+GET https://fd-endpoint-aca-dev-001-chbmgzgtgzgscveb.z01.azurefd.net/health HTTP/1.1
+
+
+
