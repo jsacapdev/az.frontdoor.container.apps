@@ -4,6 +4,9 @@ param baseName2 string
 @description('Azure Location/Region')
 param location string 
 
+@description('Tags')
+param tags object
+
 @description('Private Link Service Id')
 param privateLinkServiceId string
 
@@ -21,6 +24,7 @@ var app1OriginRouteName = 'fd-route-${baseName2}-001'
 resource frontDoorProfile 'Microsoft.Cdn/profiles@2022-11-01-preview' = {
   name: frontDoorProfileName
   location: 'Global'
+  tags: tags  
   sku: {
     name: 'Premium_AzureFrontDoor'
   }

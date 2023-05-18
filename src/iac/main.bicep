@@ -11,11 +11,19 @@ param baseName string
 @maxLength(12)
 param baseName2 string
 
+param tags object = {
+  productOwner: 'AppTeam1'
+  application: 'container apps'
+  environment: 'dev'
+  projectCode: 'nonbillable'
+}
+
 module network './modules/network.bicep' = {
   name: 'network'
   params: {
     location: location
     baseName: baseName
+    tags: tags
   }
 }
 
@@ -24,6 +32,7 @@ module logAnalytics './modules/loganalytics.bicep' = {
   params: {
     location: location
     baseName: baseName
+    tags: tags
   }
 }
 
@@ -32,6 +41,7 @@ module containerAppsEnv './modules/containerappsenv.bicep' = {
   params: {
     location: location
     baseName: baseName
+    tags: tags
     logAnalyticsWorkspaceName: logAnalytics.outputs.logAnalyticsWorkspaceName
     infrastructureSubnetId: network.outputs.containerappsSubnetid
   }
@@ -42,6 +52,7 @@ module containerApp './modules/containerapp.bicep' = {
   params: {
     location: location
     baseName: baseName
+    tags: tags
     containerAppsEnvironmentId: containerAppsEnv.outputs.containerAppsEnvironmentId
     containerImage: 'ghcr.io/jsacapdev/nodeapp:latest'
   }
@@ -52,6 +63,7 @@ module privateLinkService './modules/privatelinkservice.bicep' = {
   params: {
     location: location
     baseName: baseName
+    tags: tags
     vnetSubnetId: network.outputs.containerappsSubnetid
     containerAppsDefaultDomainName: containerAppsEnv.outputs.containerAppsEnvironmentDefaultDomain
   }
@@ -62,6 +74,7 @@ module frontDoor './modules/frontdoor.bicep' = {
   params: {
     baseName2: baseName2
     location: location
+    tags: tags
     privateLinkServiceId: privateLinkService.outputs.privateLinkServiceId
     frontDoorAppHostName: containerApp.outputs.containerFqdn
   }

@@ -4,6 +4,9 @@ param baseName string
 @description('Azure Location/Region')
 param location string
 
+@description('Tags')
+param tags object
+
 @description('VNET Subnet ID')
 param vnetSubnetId string
 
@@ -25,6 +28,7 @@ resource loadBalancer 'Microsoft.Network/loadBalancers@2021-05-01' existing = {
 resource privateLinkService 'Microsoft.Network/privateLinkServices@2022-01-01' = {
   name: privateLinkServiceName
   location: location
+  tags: tags
   properties: {
     loadBalancerFrontendIpConfigurations: [
       {

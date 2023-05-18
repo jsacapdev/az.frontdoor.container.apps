@@ -7,6 +7,9 @@ param location string
 @description('Subnet resource ID for the Container App environment')
 param infrastructureSubnetId string
 
+@description('Tags')
+param tags object
+
 @description('Name of the log analytics workspace')
 param logAnalyticsWorkspaceName string = 'log-${baseName}'
 
@@ -22,6 +25,7 @@ resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2022-10
 resource environment 'Microsoft.App/managedEnvironments@2022-10-01' = {
   name: environmentName
   location: location
+  tags: tags
   properties: {
     appLogsConfiguration: {
       destination: 'log-analytics'

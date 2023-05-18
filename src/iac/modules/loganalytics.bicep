@@ -4,12 +4,16 @@ param baseName string
 @description('Azure Location/Region')
 param location string 
 
+@description('Tags')
+param tags object
+
 // Define names
 var logAnalyticsName = 'log-${baseName}'
 
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
   name: logAnalyticsName
   location: location
+  tags: tags
   properties: {
     sku: {
       name: 'PerGB2018'
